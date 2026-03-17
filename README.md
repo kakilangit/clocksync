@@ -2,7 +2,7 @@
 [![Documentation](https://docs.rs/clocksync/badge.svg)](https://docs.rs/clocksync)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/kakilangit/clocksync/blob/main/LICENSE)
 [![Rust Version](https://img.shields.io/badge/rust-1.88%2B-blue.svg)](https://www.rust-lang.org)
-[![github](https://img.shields.io/badge/github-kakilangit/clocksync-37a8e0?style=for-the-badge&labelColor=555555&logo=github)](https://github.com/kakilangit/clocksync)
+<a href="https://github.com/kakilangit/clocksync"><img alt="github" src="https://img.shields.io/badge/github-kakilangit/clocksync-37a8e0?style=for-the-badge&labelColor=555555&logo=github" height="20"></a>
 
 # clocksync
 
@@ -16,6 +16,7 @@
 - **Nanosecond precision** - All time values in nanoseconds via NULID timestamps
 - **NULID-centric** - Probes exchange NULIDs, samples are built from NULID timestamps, consensus produces NULIDs
 - **Async `ClockSource` trait** - Implement your own probing logic for any transport (HTTP, gRPC, UDP, etc.)
+- **WASM ready** - Optional `wasm` feature for Cloudflare Workers and browser targets
 - **Confidence tracking** - Know how many sources agree on the consensus interval
 - **Memory safe** - Zero unsafe code, panic-free production paths
 - **Pedantic clippy** - Strict linting enforced
@@ -28,8 +29,20 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-clocksync = "0.1"
+clocksync = "0.2"
 ```
+
+### WASM / Cloudflare Workers
+
+Enable the `wasm` feature for WASM targets:
+
+```toml
+[dependencies]
+clocksync = { version = "0.2", features = ["wasm"] }
+```
+
+This activates `nulid/wasm` under the hood, which provides `getrandom/wasm_js`
+and `web-time` for timestamp generation in browser and Workers environments.
 
 ---
 

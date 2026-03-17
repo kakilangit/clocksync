@@ -1,6 +1,6 @@
 [package]
 name = "clocksync"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 rust-version = "1.88"
 authors = ["kakilangit <crates@kakilangit.dev>"]
@@ -13,8 +13,12 @@ categories = ["date-and-time", "algorithms"]
 
 [workspace]
 
+[features]
+default = []
+wasm = ["nulid/wasm"]
+
 [dependencies]
-nulid = { version = "0.10" }
+nulid = { version = "0.10", default-features = false, features = ["std"] }
 rand = { version = "0.9" }
 
 [dev-dependencies]
