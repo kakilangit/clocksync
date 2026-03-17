@@ -35,8 +35,5 @@ use crate::ProbeResponse;
 pub trait ClockSource {
     type Error;
 
-    fn probe(
-        &self,
-        address: &str,
-    ) -> impl Future<Output = Result<ProbeResponse, Self::Error>> + Send;
+    fn probe(&self, address: &str) -> impl Future<Output = Result<ProbeResponse, Self::Error>>;
 }

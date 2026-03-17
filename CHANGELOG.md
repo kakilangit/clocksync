@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-17
+
+### Added
+
+- **`wasm` feature flag** - Enables WASM/Cloudflare Workers compatibility
+  - Passes through `nulid/wasm` to activate `getrandom/wasm_js` and `web-time`
+  - Core algorithm (`marzullo`, `consensus`, all types) works unchanged on WASM targets
+
+### Changed
+
+- **`ClockSource::probe()` no longer requires `Send` on the returned future** (**breaking**)
+  - Was: `fn probe(&self, address: &str) -> impl Future<...> + Send`
+  - Now: `fn probe(&self, address: &str) -> impl Future<...>`
+  - This enables implementing `ClockSource` in single-threaded environments
+    (e.g. Cloudflare Workers) where futures from platform APIs are `!Send`
+  - Callers using tokio multi-threaded runtime are unaffected if the
+    implementing type's future is already `Send` (RPITIT captures auto-traits)
+- **`nulid` dependency** changed to `default-features = false, features = ["std"]`
+  - Prevents pulling in the `quanta` native clock backend by default
+  - Native builds retain full functionality via `std` feature
+  - WASM builds activate `web-time` backend via the `wasm` feature
+
 ## [0.1.0] - 2026-03-17
 
 ### Added
@@ -40,5 +62,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - CI: format check, clippy, tests, doc tests
   - Release: version verification, crates.io publishing, GitHub release creation
 
-[Unreleased]: https://github.com/kakilangit/clocksync/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/kakilangit/clocksync/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/kakilangit/clocksync/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/kakilangit/clocksync/releases/tag/v0.1.0
