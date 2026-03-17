@@ -1,0 +1,30 @@
+[package]
+name = "clocksync"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+authors = ["kakilangit <crates@kakilangit.dev>"]
+license = "MIT"
+description = "Fault-tolerant clock synchronization using Marzullo's algorithm with NULID nanosecond timestamps"
+repository = "https://github.com/kakilangit/clocksync"
+homepage = "https://github.com/kakilangit/clocksync"
+keywords = ["clock", "synchronization", "marzullo", "nulid", "consensus"]
+categories = ["date-and-time", "algorithms"]
+
+[workspace]
+
+[dependencies]
+nulid = { version = "0.10" }
+rand = { version = "0.9" }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt"] }
+
+[lints.clippy]
+panic = "deny"
+unwrap_used = "deny"
+expect_used = "deny"
+cast_possible_truncation = "allow"
+cast_precision_loss = "allow"
+cast_sign_loss = "allow"
+pedantic = { level = "warn", priority = -1 }
